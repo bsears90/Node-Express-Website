@@ -1,0 +1,86 @@
+const { User } = require('./models')
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var exphbs = require('express-handlebars');
+var expressValidator = require('express-validator');
+var flash = require('connect-flash');
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+// Routes to index
+var index = require('./routes/index');
+var users = require('./routes/users');
+
+// Init App
+const app = express();
+
+// View Engine
+app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', exphbs({defaultLayout:'layout'}));
+app.set('view engine', 'handlebars');
+
+
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// BodyParser Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+// Connect Flash
+app.use(flash());
+
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Express Validator
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+
+// Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
+//Syncing Models
+User.sync();
+
+// Creating Flash Global Variables
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next();
+});
+
+// Connects ./routes to app so we can use the routes
+app.use('/', index);
+app.use('/users', users);
+
+// Listen on port 3000
+app.listen(3000, () => {
+  console.log("Listening on port 3000...");
+});
