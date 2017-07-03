@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var { registerUser, getAllUsers, createUser } = require('../controllers/users')
+var { registerUser, getAllUsers, createUser, deleteUser } = require('../controllers/users')
 
 // Register
 router.get('/register', function(req, res){
@@ -14,7 +14,7 @@ router.get('/login', function(req, res){
 
 router.post('/register', registerUser);
 
-router.post('/register1', createUser);
+router.post('/register1', deleteUser);
 
 
 module.exports = router;

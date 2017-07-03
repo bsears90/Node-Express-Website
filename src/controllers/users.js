@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-
+//  Works
 function getAllUsers(req, res, next) {
   User.findAll().then((users) => {
     res.json(users);
@@ -8,7 +8,6 @@ function getAllUsers(req, res, next) {
 }
 
 function createUser(req, res, next) {
-  User.sync();
   return User.create({ username: "matt" }).then((user) => {
     res.status(200).json(user);
   }).catch((error) => {
@@ -16,14 +15,15 @@ function createUser(req, res, next) {
   })
 }
 
+// Works
 function deleteUser(req, res, next) {
-  var username = req.body.username;
+  var username = "matt"; // Username = "matt" needs to be dynamic
   return User.destroy({
     where: {
       username: username
     }
   }).then(function (rowDeleted) {
-    console.log ("Row where username is " + username + "has deleted " + rowDeleted + " row.");
+    console.log ("Row where username is " + username + " has deleted " + rowDeleted + " row(s).");
   });
 }
 
@@ -33,7 +33,6 @@ function registerUser(req, res){
 	var username = req.body.username;
 	var password = req.body.password;
 	var password2 = req.body.password2;
-
 	// Validation
 	req.checkBody('name', 'Name is required').notEmpty();
 	req.checkBody('email', 'Email is required').notEmpty();
@@ -48,7 +47,20 @@ function registerUser(req, res){
       errors: errors
     });
 	} else {
-		console.log('PASSED');
+		var newUser = new User({
+      name: name, 
+      email: email,
+      username: username,
+      password: password
+    });
+    User.createUser(newUser, function(err, user) {
+      if(err) throw err;
+      console.log(user)
+    })
+    
+    req.flash('success_msg', 'You are registered and can now login.')
+    res.redirect('/users/login')
+
 	}
 }
 
@@ -70,5 +82,6 @@ module.exports = {
   getAllUsers,
   createUser,
   updateUser,
-  registerUser
+  registerUser,
+  deleteUser
 }

@@ -9,6 +9,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcryptjs');
 
 // Routes to index
 var index = require('./routes/index');
@@ -74,9 +75,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-// Sync models
+// Sync models to create tables if not exists
 User.sync();
-//edit
 
 // Connects ./routes to app so we can use the routes
 app.use('/', index);
