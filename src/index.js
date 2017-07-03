@@ -76,6 +76,7 @@ app.use(function (req, res, next) {
 
 // Sync models
 User.sync();
+//edit
 
 // Connects ./routes to app so we can use the routes
 app.use('/', index);
