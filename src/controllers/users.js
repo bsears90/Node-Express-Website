@@ -1,4 +1,4 @@
-const { User } = require('../models')
+const User = require('../models/user');
 
 
 function getAllUsers(req, res, next) {
@@ -8,6 +8,7 @@ function getAllUsers(req, res, next) {
 }
 
 function createUser(req, res, next) {
+  User.sync();
   return User.create({ username: "matt" }).then((user) => {
     res.status(200).json(user);
   }).catch((error) => {

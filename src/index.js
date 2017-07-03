@@ -1,4 +1,4 @@
-const { User } = require('./models')
+const User = require('./models/user')
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -64,8 +64,6 @@ app.use(session({
     resave: true
 }));
 
-//Syncing Models
-User.sync();
 
 // Creating Flash Global Variables
 app.use(function (req, res, next) {
@@ -75,6 +73,9 @@ app.use(function (req, res, next) {
   res.locals.user = req.user || null;
   next();
 });
+
+// Sync models
+User.sync();
 
 // Connects ./routes to app so we can use the routes
 app.use('/', index);
