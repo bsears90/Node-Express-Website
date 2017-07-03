@@ -3,7 +3,9 @@ Node.js/Express.js website. contents are in src folder.
 
 To init:
 
-`<addr>` npm install
+Install package.json dependencies
+`npm install`
 
-`<addr>` node index
+Start node at index file. (Make sure you're in the `src` directory)
+`node index`
 
