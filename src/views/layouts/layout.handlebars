@@ -1,32 +1,58 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Login App</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/css/style.css">
+  <title>Login App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+    crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-<div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills float-right">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Dashboard<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/login">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/register">Register</a>
-            </li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Zelda Strats</h3>
-      </div>
-	{{{body}}}
-</div>
+  <!--
+                                                 ,  ,
+                                               / \/ \
+                                              (/ //_ \_
+     .-._                                      \||  .  \
+      \  '-._                            _,:__.-"/---\_ \
+ ______/___  '.    .--------------------'~-'--.)__( , )\ \
+`'--.___  _\  /    |             Zelda       ,'    \)|\ `\|
+     /_.-' _\ \ _:,_             Strats            " ||   (
+   .'__ _.' \'-/,`-~`                                |/
+       '. ___.> /=,|                                 |
+        / .-'/_ )  '---------------------------------'
+        )'  ( /(/
+             \\ "
+              '=='
+*/
+-->
+  <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills float-right">
+          {{#if user}}
+          <li class="nav-item">
+            <a class="nav-link" href="/">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            {{else}}
+            <a class="nav-link" href="/users/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/register">Register</a>
+          </li>
+          {{/if}}
+        </ul>
+      </nav>
+      <h3 class="text-muted">Zelda Strats</h3>
+    </div>
+    {{{body}}}
+
+  </div>
 </body>
+
 </html>

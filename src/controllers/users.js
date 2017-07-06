@@ -7,13 +7,6 @@ function getAllUsers(req, res, next) {
   });
 }
 
-function createUser(req, res, next) {
-  return User.create({ username: "matt" }).then((user) => {
-    res.status(200).json(user);
-  }).catch((error) => {
-    res.status(500).send(error);
-  })
-}
 
 // Works
 function deleteUser(req, res, next) {
@@ -80,7 +73,6 @@ function updateUser(req, res, next) {
 
 module.exports = {
   getAllUsers,
-  createUser,
   updateUser,
   registerUser,
   deleteUser
