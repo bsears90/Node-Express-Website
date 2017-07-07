@@ -36,8 +36,10 @@ function registerUser(req, res) {
 
   var errors = req.validationErrors();
   if (errors) {
+    console.log(errors);
     res.render('register', {
-      errors: errors
+      errors: errors,
+      layout: false
     });
   } else {
     var newUser = new User({
