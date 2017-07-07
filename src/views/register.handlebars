@@ -1,27 +1,93 @@
-{{#if errors}}
+<!DOCTYPE html>
+<html>
+
+<head>
+ <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<style>
+      body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: -100px;
+    }
+    .column {
+      max-width: 450px;
+    }
+    </style>
+
+
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    {{#if errors}}
 <div class="alert alert-danger">Please make sure the information provided is correct.</div>
 {{/if}}
-<h2 class="page-header">Register</h2>
-<form method="post" action="/users/register">
-  <div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" placeholder="Name" name="name">
+    <h2 class="ui purple image header">
+      <img src="/images/mastersword.png" class="image">
+      <div class="content">
+        Sign-up
+      </div>
+    </h2>
+    <form class="ui large form" method="post" action="/users/register">
+      <div class="ui stacked segment">
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="name" name="name" placeholder="Name">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="usrname" name="username" placeholder="Username">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="email" name="email" placeholder="Email">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password2" placeholder="Confirm Password">
+          </div>
+        </div>
+
+        <button type="submit" class="ui fluid large purple submit button">Register</button>
+      </div>
+
+      <div class="ui error message"></div>
+
+    </form>
+
+    <div class="ui message">
+      Already have an account? <a href="/users/login">Sign In</a>
+    </div>
   </div>
-  <div class="form-group">
-    <label>Username</label>
-    <input type="text" class="form-control" placeholder="Username" name="username">
-  </div>
-  <div class="form-group">
-    <label>Email</label>
-    <input type="email" class="form-control" placeholder="Email" name="email">
-  </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" placeholder="Password" name="password">
-  </div>
-  <div class="form-group">
-    <label>Confirm Password</label>
-    <input type="password" class="form-control" placeholder="Password" name="password2">
-  </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-</form>
+</div>
+
+</body>

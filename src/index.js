@@ -73,10 +73,7 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user;
-  console.log(req.user);
-  console.log(res.locals.user);
   next();
-
 });
 
 // Sync models to create tables if not exists
