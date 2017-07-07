@@ -21,11 +21,8 @@ const User = sequelize.define('user', {
   },
 });
 
-module.exports = User;
-
-
 // Hashing User's Password
-module.exports.createUser = function (newUser, callback) {
+User.createUser = function (newUser, callback) {
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(newUser.password, salt, function (err, hash) {
       newUser.password = hash;
@@ -34,17 +31,19 @@ module.exports.createUser = function (newUser, callback) {
   });
 }
 
-module.exports.getUserByUsername = function (username) {
+User.getUserByUsername = function (username) {
   User.findOne({ where: { username: username } });
 }
 
-module.exports.getUserById = function (username) {
-  User.findById(id);
+User.getUserById = function (id, callback) {
+  User.findById(id).then(callback);
 }
 
-module.exports.comparePassword = function (candidatePassword, hash, callback) {
-  bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-    if(err) throw err;
+User.comparePassword = function (candidatePassword, hash, callback) {
+  bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
+    if (err) throw err;
     callback(null, isMatch);
   })
 }
+
+module.exports = User;

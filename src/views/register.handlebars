@@ -1,9 +1,9 @@
-<h2 class="page-header">Register</h2>
 {{#if errors}}
-  <div class="alert alert-danger">Please make sure the information provided is correct.</div>
+<div class="alert alert-danger">Please make sure the information provided is correct.</div>
 {{/if}}
+<h2 class="page-header">Register</h2>
 <form method="post" action="/users/register">
-   <div class="form-group">
+  <div class="form-group">
     <label>Name</label>
     <input type="text" class="form-control" placeholder="Name" name="name">
   </div>
@@ -11,7 +11,7 @@
     <label>Username</label>
     <input type="text" class="form-control" placeholder="Username" name="username">
   </div>
-   <div class="form-group">
+  <div class="form-group">
     <label>Email</label>
     <input type="email" class="form-control" placeholder="Email" name="email">
   </div>

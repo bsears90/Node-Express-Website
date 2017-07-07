@@ -18,24 +18,32 @@ var users = require('./routes/users');
 // Init App
 const app = express();
 
+
+
+// BodyParser Middleware
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
 
+// Connect Flash
+app.use(flash());
 
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-// BodyParser Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-// Connect Flash
-app.use(flash());
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -58,21 +66,17 @@ app.use(expressValidator({
   }
 }));
 
-// Express Session
-app.use(session({
-    secret: 'secret',
-    saveUninitialized: true,
-    resave: true
-}));
-
 
 // Creating Flash Global Variables
 app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
-  res.locals.user = req.user || null;
+  res.locals.user = req.user;
+  console.log(req.user);
+  console.log(res.locals.user);
   next();
+
 });
 
 // Sync models to create tables if not exists
