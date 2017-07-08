@@ -2,12 +2,10 @@
 <html>
 
 <head>
- <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="/semantic/dist/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script src="/semantic/dist/semantic.min.js"></script>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -36,10 +34,9 @@
       <a href="/" class="header item">
         <img class="logo" src="/images/mastersword.png">
         Zelda Strats
-      </a>
-      {{#if user}}
+      </a> {{#if user}}
       <div class="ui simple dropdown right item">
-      {{user.username}}<i class="dropdown icon"></i>
+        {{user.username}}<i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="/users/logout">Logout</a>
           <div class="divider"></div>
@@ -47,21 +44,50 @@
         </div>
       </div>
       {{else}}
-      <a href="/users/login" class="item right">Login</a>
-      {{/if}}
-
+      <a href="/users/login" class="item right">Login</a> {{/if}}
     </div>
   </div>
 
-
-  {{#if success_msg}}
-  <div class="alert alert-success">{{success_msg}}</div>
+  {{#if error}}
+  <div class="ui container">
+    <div class="ui error message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{error}}
+      </div>
+      </ul>
+    </div>
+  </div>
+  {{/if}} {{#if success_msg}}
+  <div class="ui container">
+    <div class="ui success message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{success_msg}}
+      </div>
+      </ul>
+    </div>
+  </div>
   {{/if}} {{#if error_msg}}
-  <div class="alert alert-danger">{{error_msg}}</div>
+  <div class="ui container">
+    <div class="ui error message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{error_msg}}
+      </div>
+      </ul>
+    </div>
+  </div>
   {{/if}} {{#if error}}
-  <div class="alert alert-danger">{{error}}</div>
-  {{/if}}
-{{{body}}}
+  <div class="ui container">
+    <div class="ui error message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{error}}
+      </div>
+      </ul>
+    </div>
+  </div> {{/if}} {{{body}}}
 
   <div class="ui inverted vertical footer segment">
     <div class="ui center aligned container">
