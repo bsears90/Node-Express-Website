@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var { registerUser, getAllUsers, deleteUser } = require('../controllers/users');
+var userController = require('../controllers/users');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/user');
+var User = require('../models/user');
 var bcrypt = require('bcryptjs');
 
 // Use Passport
@@ -34,7 +34,7 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (id, done) {
-	User.getUserById(id, function (user) {
+	userController.getUserById(id, function (user) {
 		done(null, user);
 	});
 });
@@ -53,7 +53,7 @@ router.get('/login', function (req, res) {
 	});
 });
 
-router.post('/register', registerUser);
+router.post('/register', userController.registerUser);
 
 router.post('/login',
 	passport.authenticate('local', { failureRedirect: '/users/login', failureFlash: true }),

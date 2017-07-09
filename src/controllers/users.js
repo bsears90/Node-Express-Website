@@ -1,14 +1,16 @@
 const User = require('../models/user');
+var userController = {};
+var bcrypt = require('bcryptjs');
 
 //  Works
-function getAllUsers(req, res, next) {
+userController.getAllUsers = function(req, res, next) {
   User.findAll().then((users) => {
     res.json(users);
   });
 }
 
 // Works
-function deleteUser(req, res, next) {
+userController.deleteUser = function(req, res, next) {
   var username = "matt"; // Username = "matt" needs to be dynamic
   return User.destroy({
     where: {
@@ -19,7 +21,7 @@ function deleteUser(req, res, next) {
   });
 }
 
-function registerUser(req, res) {
+userController.registerUser = function(req, res) {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -48,7 +50,7 @@ function registerUser(req, res) {
       username: username,
       password: password
     });
-    User.createUser(newUser, function (err, user) {
+    userController.createUser(newUser, function (err, user) {
       if (err) throw err;
     });
     req.flash('success_msg', 'You are registered and can now login.')
@@ -56,7 +58,7 @@ function registerUser(req, res) {
   }
 }
 
-function updateUser(req, res, next) {
+userController.updateUser = function(req, res, next) {
   var username = req.body.username;
   return User.update(
     //Set username (in database) to username (which was submitted in body object)
@@ -69,9 +71,30 @@ function updateUser(req, res, next) {
     });
 }
 
-module.exports = {
-  getAllUsers,
-  updateUser,
-  registerUser,
-  deleteUser
+// Hashing User's Password
+userController.createUser = function (newUser, callback) {
+  bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.hash(newUser.password, salt, function (err, hash) {
+      newUser.password = hash;
+      newUser.save(callback);
+    });
+  });
 }
+
+userController.getUserByUsername = function (username) {
+  User.findOne({ where: { username: username } });
+}
+
+userController.getUserById = function (id, callback) {
+  User.findById(id).then(callback);
+}
+
+userController.comparePassword = function (candidatePassword, hash, callback) {
+  bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
+    if (err) throw err;
+    callback(null, isMatch);
+  })
+}
+
+
+module.exports = userController;

@@ -1,4 +1,3 @@
-const User = require('./models/user')
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -11,9 +10,14 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
+// Model Routes
+const User = require('./models/user')
+const Game = require('./models/game')
+
 // Routes to index
 var index = require('./routes/index');
 var users = require('./routes/users');
+var games = require('./routes/games');
 
 // Init App
 const app = express();
@@ -78,10 +82,13 @@ app.use(function (req, res, next) {
 
 // Sync models to create tables if not exists
 User.sync();
+Game.sync();
+
 
 // Connects ./routes to app so we can use the routes
 app.use('/', index);
 app.use('/users', users);
+app.use('/games', games);
 
 // Listen on port 3000
 app.listen(3000, () => {

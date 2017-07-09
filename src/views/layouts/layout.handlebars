@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
@@ -28,7 +29,7 @@
 */
 -->
 
-
+<!--
   <div class="ui inverted menu">
     <div class="ui container">
       <a href="/" class="header item">
@@ -36,7 +37,8 @@
         Zelda Strats
       </a> {{#if user}}
       <div class="ui simple dropdown right item">
-        {{user.username}}<i class="dropdown icon"></i>
+        {{user.username}}
+        <i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="/users/logout">Logout</a>
           <div class="divider"></div>
@@ -47,6 +49,31 @@
       <a href="/users/login" class="item right">Login</a> {{/if}}
     </div>
   </div>
+-->
+
+ <div class="ui inverted menu">
+    <div class="ui container">
+      <a href="/" class="header item">
+        <img class="logo" src="/images/mastersword.png">
+        Zelda Strats
+      </a>
+
+      <a href="/games" class="item right">Games</a>
+      {{#if user}}
+      <div class="ui simple dropdown item">
+        {{user.username}} <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="/users/logout">Logout</a>
+          <a class="item" href="#">Profile</a>
+        </div>
+      </div>
+      {{else}}
+      <a href="/users/login" class="item">Login</a>
+      <a href="/users/register" class="item">Register</a>
+      {{/if}}
+    </div>
+  </div>
+
 
   {{#if error}}
   <div class="ui container">
