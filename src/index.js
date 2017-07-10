@@ -11,13 +11,16 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
 // Model Routes
-const User = require('./models/user')
-const Game = require('./models/game')
+const User = require('./models/user');
+const Game = require('./models/game');
+const Category = require('./models/category');
+const gameCategory = require('./models/game_category');
 
 // Routes to index
 var index = require('./routes/index');
 var users = require('./routes/users');
 var games = require('./routes/games');
+
 
 // Init App
 const app = express();
@@ -83,6 +86,8 @@ app.use(function (req, res, next) {
 // Sync models to create tables if not exists
 User.sync();
 Game.sync();
+Category.sync();
+gameCategory.sync();
 
 
 // Connects ./routes to app so we can use the routes
