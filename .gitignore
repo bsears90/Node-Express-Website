@@ -1,2 +1,3 @@
 dist/*
+*.sql
 node_modules
