@@ -1,5 +1,6 @@
 {{#if content}}
 <div class="ui container">
+    <a href="/games/{{game}}/{{category}}/edit"><div class="ui button primary">Edit</div></a>
     <div class="ql-snow">
         <div id="content" class="ql-editor">
             {{{content}}}
@@ -8,6 +9,7 @@
 </div>
 {{else}}
 <div class="ui container">
+    <a href="/games/{{game}}/{{category}}/edit"><div class="ui button primary">Edit</div></a>
     <div class="ui negative message">
         <i class="close icon"></i>
         <div class="header">
@@ -16,6 +18,6 @@
         <p>Message a staff member if you think this is a problem.
         </p>
     </div>
+
 </div>
 {{/if}}
-</div>
