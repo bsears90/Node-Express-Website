@@ -2,15 +2,29 @@
 <html>
 
 <head>
+  <!-- Main Quill library -->
+  <script src="//cdn.quilljs.com/1.2.6/quill.js"></script>
+  <script src="//cdn.quilljs.com/1.2.6/quill.min.js"></script>
+
+  <!-- Theme included stylesheets -->
+  <link href="//cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
+  <link href="//cdn.quilljs.com/1.2.6/quill.bubble.css" rel="stylesheet">
+
+  <!-- Core build with no theme, formatting, non-essential modules -->
+  <link href="//cdn.quilljs.com/1.2.6/quill.core.css" rel="stylesheet">
+  <script src="//cdn.quilljs.com/1.2.6/quill.core.js"></script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
   <script src="/semantic/dist/semantic.min.js"></script>
   <link rel="stylesheet" href="/css/style.css">
+
 </head>
 
-<body>
+<body class="Site">
   <!--
                                                  ,  ,
                                                / \/ \
@@ -28,136 +42,93 @@
               '=='
 */
 -->
-
-<!--
-  <div class="ui inverted menu">
-    <div class="ui container">
-      <a href="/" class="header item">
-        <img class="logo" src="/images/mastersword.png">
-        Zelda Strats
-      </a> {{#if user}}
-      <div class="ui simple dropdown right item">
-        {{user.username}}
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <a class="item" href="/users/logout">Logout</a>
-          <div class="divider"></div>
-          <a class="item" href="#">TEST</a>
-        </div>
-      </div>
-      {{else}}
-      <a href="/users/login" class="item right">Login</a> {{/if}}
-    </div>
-  </div>
--->
-
- <div class="ui inverted menu">
-    <div class="ui container">
-      <a href="/" class="header item">
+  <main class="Site-content">
+    <div class="ui inverted menu">
+      <div class="ui container">
+        <a href="/" class="header item">
         <img class="logo" src="/images/mastersword.png">
         Zelda Strats
       </a>
 
-      <a href="/games" class="item right">Games</a>
-      {{#if user}}
-      <div class="ui simple dropdown item">
-        {{user.username}} <i class="dropdown icon"></i>
-        <div class="menu">
-          <a class="item" href="/users/logout">Logout</a>
-          <a class="item" href="#">Profile</a>
+        <a href="/games" class="item right">Games</a> {{#if user}}
+        <div class="ui simple dropdown item">
+          {{user.username}} <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item" href="/users/logout">Logout</a>
+            <a class="item" href="#">Profile</a>
+          </div>
         </div>
+        {{else}}
+        <a href="/users/login" class="item">Login</a>
+        <a href="/users/register" class="item">Register</a> {{/if}}
       </div>
-      {{else}}
-      <a href="/users/login" class="item">Login</a>
-      <a href="/users/register" class="item">Register</a>
-      {{/if}}
     </div>
-  </div>
 
 
-  {{#if error}}
-  <div class="ui container">
-    <div class="ui error message">
-      <i class="close icon"></i>
-      <div class="header">
-        {{error}}
+    {{#if error}}
+    <div class="ui container">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        <div class="header">
+          {{error}}
+        </div>
+        </ul>
       </div>
-      </ul>
     </div>
-  </div>
-  {{/if}} {{#if success_msg}}
-  <div class="ui container">
-    <div class="ui success message">
-      <i class="close icon"></i>
-      <div class="header">
-        {{success_msg}}
+    {{/if}} {{#if success_msg}}
+    <div class="ui container">
+      <div class="ui success message">
+        <i class="close icon"></i>
+        <div class="header">
+          {{success_msg}}
+        </div>
+        </ul>
       </div>
-      </ul>
     </div>
-  </div>
-  {{/if}} {{#if error_msg}}
-  <div class="ui container">
-    <div class="ui error message">
-      <i class="close icon"></i>
-      <div class="header">
-        {{error_msg}}
+    {{/if}} {{#if error_msg}}
+    <div class="ui container">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        <div class="header">
+          {{error_msg}}
+        </div>
+        </ul>
       </div>
-      </ul>
     </div>
-  </div>
-  {{/if}} {{#if error}}
-  <div class="ui container">
-    <div class="ui error message">
-      <i class="close icon"></i>
-      <div class="header">
-        {{error}}
+    {{/if}} {{#if error}}
+    <div class="ui container">
+      <div class="ui error message">
+        <i class="close icon"></i>
+        <div class="header">
+          {{error}}
+        </div>
+        </ul>
       </div>
-      </ul>
-    </div>
-  </div> {{/if}} {{{body}}}
+    </div> {{/if}} {{{body}}}
+  </main>
 
-  <div class="ui inverted vertical footer segment">
+  <div class="ui inverted vertical footer segment sticky">
     <div class="ui center aligned container">
       <div class="ui stackable inverted divided grid">
-        <div class="three wide column">
-          <h4 class="ui inverted header">Group 1</h4>
+        <div class="eight wide column">
+          <h4 class="ui inverted header">Socials</h4>
           <div class="ui inverted link list">
-            <a href="#" class="item">Link One</a>
-            <a href="#" class="item">Link Two</a>
-            <a href="#" class="item">Link Three</a>
-            <a href="#" class="item">Link Four</a>
+            <a href="http://www.twitter.com/trokematthew" class="item">Twitter</a>
+            <a href="http://www.twitch.tv/xmattgaming" class="item">Twitch</a>
           </div>
         </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header">Group 2</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Link One</a>
-            <a href="#" class="item">Link Two</a>
-            <a href="#" class="item">Link Three</a>
-            <a href="#" class="item">Link Four</a>
-          </div>
-        </div>
-        <div class="three wide column">
-          <h4 class="ui inverted header">Group 3</h4>
-          <div class="ui inverted link list">
-            <a href="#" class="item">Link One</a>
-            <a href="#" class="item">Link Two</a>
-            <a href="#" class="item">Link Three</a>
-            <a href="#" class="item">Link Four</a>
-          </div>
-        </div>
+      
+        
         <div class="seven wide column">
-          <h4 class="ui inverted header">Footer Header</h4>
-          <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+          <h4 class="ui inverted header">Zelda Strats</h4>
+          <p>Zelda Strats&trade; is a Zelda strategy guide for speedrunners. Now listing all Zelda games and all categories. Each category for each game has strategies created by only the best and most trustworthy runners in the community.</p>
         </div>
       </div>
       <div class="ui inverted section divider"></div>
       <img src="/images/hylianshield.png" class="ui centered mini image">
       <div class="ui horizontal inverted small divided link list">
-        <a class="item" href="#">Site Map</a>
-        <a class="item" href="#">Contact Us</a>
-        <a class="item" href="#">Terms and Conditions</a>
-        <a class="item" href="#">Privacy Policy</a>
+        <a class="item" href="/">Contact Us</a>
+        <a class="item" href="/">Terms and Conditions</a>
       </div>
     </div>
   </div>

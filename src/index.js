@@ -14,7 +14,7 @@ var bcrypt = require('bcryptjs');
 const User = require('./models/user');
 const Game = require('./models/game');
 const Category = require('./models/category');
-const gameCategory = require('./models/game_category');
+const gameContent = require('./models/game_content');
 
 // Routes to index
 var index = require('./routes/index');
@@ -87,13 +87,16 @@ app.use(function (req, res, next) {
 User.sync();
 Game.sync();
 Category.sync();
-gameCategory.sync();
+gameContent.sync();
 
 
 // Connects ./routes to app so we can use the routes
 app.use('/', index);
 app.use('/users', users);
 app.use('/games', games);
+
+//redirect page
+app.use(function(req , res, next) { res.render( '404'); });
 
 // Listen on port 3000
 app.listen(3000, () => {
