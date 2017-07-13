@@ -66,6 +66,7 @@ router.get('/:game/:category/edit', function (req, res) {
 	var game = req.params.game;
 	var category = req.params.category;
 
+
 	sequelize.query("SELECT id FROM games WHERE nickname = ?",
 		{ replacements: [game], type: sequelize.QueryTypes.SELECT })
 		.then((game_id) => {
@@ -91,6 +92,8 @@ router.post('/:game/:category', function (req, res) {
 		allowedTags: false,
 		allowedAttributes: false
 	});
+	var data = req.body.data;
+	console.log(data);
 	
 	sequelize.query("SELECT id FROM games WHERE nickname = ?",
 		{ replacements: [game], type: sequelize.QueryTypes.SELECT })

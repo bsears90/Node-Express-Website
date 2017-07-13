@@ -1,49 +1,31 @@
-<div class="ui container">
-    <div id="editor-container">
-        <div id="toolbar"></div>
-        <!-- Create the editor container -->
-            <div id="editor">
-                {{#if content}} {{{content}}} {{/if}}
-            </div>
-            <input name="all_content" id="editor-container">
-        </div>
-         <a href="/games/{{game}}/{{category}}"><button class="ui button primary" type='button' onclick='sendData()'>Save Changes</button></a>
-    </div>
-
-<!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.2.6/quill.js"></script>
-
-<!-- Initialize Quill editor -->
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 <script>
-    var toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block'],
-
-        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-        [{ 'direction': 'rtl' }],                         // text direction
-
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        [{ 'font': [] }],
-        [{ 'align': [] }],
-
-        ['clean'],                                         // remove formatting button
-    ];
-    var quill = new Quill('#editor-container', {
-        modules: {
-            toolbar: toolbarOptions
-        },
-        placeholder: 'Compose an epic...',
-        theme: 'snow'  // or 'bubble'
+    tinymce.init({
+        selector: 'textarea',
+        height: 500,
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste imagetools"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        // imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '//www.tinymce.com/css/codepen.min.css'
+        ]
     });
 
-    function sendData() {
-        var data = quill.container.firstChild.innerHTML;
+</script>
+<div class="ui container">
+    <textarea id="editor">{{content}}</textarea>
+    <a href="/games/{{game}}/{{category}}"><button style="margin-top: 20px;" class="ui button primary" type='button' onclick='sendData()'>Save Changes</button></a>
+
+</div>
+
+<script>
+    function sendData() {               
+        var data = tinymce.activeEditor.getContent();
         $.ajax({
             type: "POST",
             url: window.location.href.replace("/edit", ""),
@@ -51,6 +33,7 @@
             data: { data }
         }).done(function (data) { alert(data.responseText) })
     }
+
 </script>
 
 </div>
