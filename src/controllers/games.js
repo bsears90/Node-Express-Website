@@ -1,6 +1,5 @@
 const Game = require('../models/game');
 const Category = require('../models/category')
-const gameContent = require('../models/game_content')
 
 var gameController = {};
 
@@ -12,12 +11,16 @@ gameController.createGame = function (req, res) {
 
 
 gameController.createCategory = function (req, res) {
-    gameContent.create({
-        game_categories_id: '3', content: 'Hello World!123'
+    Category.create({
+        game_id: '26', category_id: '37'
     }).then((gameContents) => {
         console.log(gameContents);
     });
 };
+
+gameController.isModerator = function (req, res) {
+    
+}
 
 
 

@@ -3,14 +3,14 @@ var userController = {};
 var bcrypt = require('bcryptjs');
 
 //  Works
-userController.getAllUsers = function(req, res, next) {
+userController.getAllUsers = function (req, res, next) {
   User.findAll().then((users) => {
     res.json(users);
   });
 }
 
 // Works
-userController.deleteUser = function(req, res, next) {
+userController.deleteUser = function (req, res, next) {
   var username = "matt"; // Username = "matt" needs to be dynamic
   return User.destroy({
     where: {
@@ -21,7 +21,7 @@ userController.deleteUser = function(req, res, next) {
   });
 }
 
-userController.registerUser = function(req, res) {
+userController.registerUser = function (req, res, next) {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -43,22 +43,35 @@ userController.registerUser = function(req, res) {
       errors: errors,
       layout: false
     });
-  } else {
-    var newUser = new User({
-      name: name,
-      email: email,
-      username: username,
-      password: password
-    });
-    userController.createUser(newUser, function (err, user) {
-      if (err) throw err;
-    });
-    req.flash('success_msg', 'You are registered and can now login.')
-    res.redirect('/users/login')
   }
+  User.findOne({
+    where: {
+      username: username,
+    }
+  }).then((username) => {
+    if (!username) {
+      return userController.createUser();
+    }
+    else {
+      console.log('Username already exists.')
+    }
+  });
+  
+  var newUser = new User({
+    name: name,
+    email: email,
+    username: username,
+    password: password
+  });
+  
+  userController.createUser(newUser, function (err, user) {
+    if (err) throw err;
+  });
+  req.flash('success_msg', 'You are registered and can now login.')
+  res.redirect('/users/login')
 }
 
-userController.updateUser = function(req, res, next) {
+userController.updateUser = function (req, res, next) {
   var username = req.body.username;
   return User.update(
     //Set username (in database) to username (which was submitted in body object)

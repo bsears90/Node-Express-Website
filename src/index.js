@@ -14,7 +14,6 @@ var bcrypt = require('bcryptjs');
 const User = require('./models/user');
 const Game = require('./models/game');
 const Category = require('./models/category');
-const gameContent = require('./models/game_content');
 
 // Routes to index
 var index = require('./routes/index');
@@ -87,7 +86,6 @@ app.use(function (req, res, next) {
 User.sync();
 Game.sync();
 Category.sync();
-gameContent.sync();
 
 
 // Connects ./routes to app so we can use the routes
