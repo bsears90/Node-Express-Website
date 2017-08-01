@@ -1,6 +1,9 @@
-{{#if content}}
 <div class="ui container">
-    <a href="/games/{{game}}/{{category}}/edit"><div style="margin-bottom: 20px;" class="ui button primary">Edit</div></a>
+
+    <a href="/games/{{game}}/{{category}}/edit">
+        <div style="margin-bottom: 20px;" class="fluid ui button primary">Edit Page</div>
+    </a>
+    {{#if content}}
     <div class="ql-snow">
         <div id="content" class="ql-editor">
             {{{content}}}
@@ -8,16 +11,5 @@
     </div>
 </div>
 {{else}}
-<div class="ui container">
-    <a href="/games/{{game}}/{{category}}/edit"><div class="ui button primary">Edit</div></a>
-    <div class="ui negative message">
-        <i class="close icon"></i>
-        <div class="header">
-            We're sorry, we can't seem to find content for this page.
-        </div>
-        <p>Message a staff member if you think this is a problem.
-        </p>
-    </div>
 
-</div>
 {{/if}}

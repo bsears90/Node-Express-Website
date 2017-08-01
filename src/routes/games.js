@@ -15,13 +15,12 @@ router.get('/', function (req, res) {
 
 router.post('/create', gameController.createCategory);
 
-
 router.get('/:game', function (req, res, next) {
 	var game = req.params.game;
 	sequelize.query("SELECT id FROM games WHERE nickname = ?",
 		{ replacements: [game], type: sequelize.QueryTypes.SELECT })
 		.then((game_id) => {
-			if (typeof game_id == undefined|| game_id.length <= 0) return next();
+			if (typeof game_id == undefined || game_id.length <= 0) return next();
 			sequelize.query('SELECT categories.category, categories.nickname' +
 				' FROM categories, game_categories' +
 				' WHERE game_categories.game_id = ?' +
@@ -32,9 +31,7 @@ router.get('/:game', function (req, res, next) {
 						game: game,
 						categories: categories
 					})
-
 				})
-
 		});
 });
 
@@ -48,7 +45,7 @@ router.get('/:game/:category', function (req, res, next) {
 			sequelize.query("SELECT id FROM categories WHERE nickname = ?",
 				{ replacements: [category], type: sequelize.QueryTypes.SELECT })
 				.then((category_id) => {
-					if(typeof game_id == undefined || typeof category_id == undefined || game_id.length <= 0 || category_id.length <= 0) return next();
+					if (typeof game_id == undefined || typeof category_id == undefined || game_id.length <= 0 || category_id.length <= 0) return next();
 					sequelize.query("SELECT content FROM game_categories WHERE ? = game_categories.game_id AND ? = game_categories.category_id",
 						{ replacements: [game_id[0].id, category_id[0].id], type: sequelize.QueryTypes.SELECT }).then((content) => {
 							res.render('content', {
@@ -62,10 +59,10 @@ router.get('/:game/:category', function (req, res, next) {
 });
 
 //Render out edit form
-router.get('/:game/:category/edit', function (req, res) {
+router.get('/:game/:category/edit', gameController.isModerator,  function (req, res) {
 	var game = req.params.game;
 	var category = req.params.category;
-
+	console.log(req.user);
 
 	sequelize.query("SELECT id FROM games WHERE nickname = ?",
 		{ replacements: [game], type: sequelize.QueryTypes.SELECT })
@@ -93,8 +90,7 @@ router.post('/:game/:category', function (req, res) {
 		allowedAttributes: false
 	});
 	var data = req.body.data;
-	console.log(data);
-	
+
 	sequelize.query("SELECT id FROM games WHERE nickname = ?",
 		{ replacements: [game], type: sequelize.QueryTypes.SELECT })
 		.then((game_id) => {
@@ -106,7 +102,5 @@ router.post('/:game/:category', function (req, res) {
 				});
 		});
 });
-
-
 
 module.exports = router;

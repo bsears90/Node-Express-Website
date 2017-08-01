@@ -33,12 +33,17 @@
 
   <div class="ui middle aligned center aligned grid">
     <div class="column">
-      {{#if error}}
-      <div class="ui error message">
-        <i class="close icon"></i>
+      {{#if success_msg}}
+      <div class="ui success message">
         <div class="header">
-          {{error}}
-          {{#if taken_information}} {{taken_information.message}} {{/if}}
+          {{success_msg}}
+        </div>
+        </ul>
+      </div>
+      {{/if}} {{#if error}}
+      <div class="ui error message">
+        <div class="header">
+          {{error}} {{#if taken_information}} {{taken_information.message}} {{/if}}
         </div>
         </ul>
       </div>

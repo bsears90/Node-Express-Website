@@ -33,7 +33,6 @@
     <div class="column">
       {{#if errors}}
       <div class="ui error message">
-        <i class="close icon"></i>
         <div class="header">
           Please make sure the information provided is correct.
         </div>
@@ -42,6 +41,14 @@
           <li>{{msg}}</li>
           {{/each}}
         </ul>
+      </div>
+      {{/if}}
+
+      {{#if error}}
+      <div class="ui error message">
+        <div class="header">
+          {{error}}
+        </div>
       </div>
       {{/if}}
 

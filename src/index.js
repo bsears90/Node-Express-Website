@@ -94,7 +94,7 @@ app.use('/users', users);
 app.use('/games', games);
 
 //redirect page
-app.use(function(req , res, next) { res.render( '404'); });
+app.use(function(req , res, next) { res.redirect( '/404error'); });
 
 // Listen on port 3000
 app.listen(3000, () => {

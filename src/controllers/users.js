@@ -2,14 +2,12 @@ const User = require('../models/user');
 var userController = {};
 var bcrypt = require('bcryptjs');
 
-//  Works
 userController.getAllUsers = function (req, res, next) {
   User.findAll().then((users) => {
     res.json(users);
   });
 }
 
-// Works
 userController.deleteUser = function (req, res, next) {
   var username = "matt"; // Username = "matt" needs to be dynamic
   return User.destroy({
@@ -21,7 +19,7 @@ userController.deleteUser = function (req, res, next) {
   });
 }
 
-userController.registerUser = function (req, res, next) {
+userController.registerUser = (req, res, next) => {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -36,39 +34,45 @@ userController.registerUser = function (req, res, next) {
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
+
   var errors = req.validationErrors();
   if (errors) {
     console.log(errors);
-    res.render('register', {
+    return res.render('register', {
       errors: errors,
       layout: false
     });
   }
-  User.findOne({
-    where: {
-      username: username,
-    }
-  }).then((username) => {
-    if (!username) {
-      return userController.createUser();
-    }
-    else {
-      console.log('Username already exists.')
+  //Validation Passed
+
+  //Find User
+  User.findOne({ where: { username: username } }).then(usernameResponse => {
+    if (!usernameResponse || typeof usernameResponse == null) {
+      User.findOne({ where: { email: email } }).then(emailResponse => {
+        if (!emailResponse || typeof emailResponse == null) {
+          var newUser = new User({
+            name: name,
+            email: email,
+            username: username,
+            password: password
+          })
+          userController.createUser(newUser, function (err, user) {
+            if (err) throw err;
+            req.flash('success_msg', 'You are registered and can now login.')
+            return res.redirect('/users/login');
+          })
+        } else {
+          console.log('username taken');
+          req.flash('error', 'User or email has already been taken.');
+          return res.redirect('register');
+        }
+      })
+    } else {
+      console.log('email taken');
+      req.flash('error', 'User or email has already been taken.');
+      return res.redirect('register');
     }
   });
-  
-  var newUser = new User({
-    name: name,
-    email: email,
-    username: username,
-    password: password
-  });
-  
-  userController.createUser(newUser, function (err, user) {
-    if (err) throw err;
-  });
-  req.flash('success_msg', 'You are registered and can now login.')
-  res.redirect('/users/login')
 }
 
 userController.updateUser = function (req, res, next) {
@@ -84,7 +88,7 @@ userController.updateUser = function (req, res, next) {
     });
 }
 
-// Hashing User's Password
+// Hashing User's Password22
 userController.createUser = function (newUser, callback) {
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(newUser.password, salt, function (err, hash) {
@@ -93,6 +97,8 @@ userController.createUser = function (newUser, callback) {
     });
   });
 }
+
+
 
 userController.getUserByUsername = function (username) {
   User.findOne({ where: { username: username } });
@@ -108,6 +114,5 @@ userController.comparePassword = function (candidatePassword, hash, callback) {
     callback(null, isMatch);
   })
 }
-
 
 module.exports = userController;

@@ -34,10 +34,9 @@
   <main class="Site-content">
     <div class="ui inverted menu">
       <div class="ui container">
-        <a href="/" class="header item">
-        <img class="logo" src="/images/mastersword.png">
-        Zelda Strats
-      </a>
+
+        <a href="/"><img class="logo" src="/images/navbar-logo.png" style="max-height: 30px; margin-top: 8px;"></a>
+
 
         <a href="/games" class="item right">Games</a> {{#if user}}
         <div class="ui simple dropdown item">
@@ -57,7 +56,6 @@
     {{#if error}}
     <div class="ui container">
       <div class="ui error message">
-        <i class="close icon"></i>
         <div class="header">
           {{error}}
         </div>
@@ -67,7 +65,6 @@
     {{/if}} {{#if success_msg}}
     <div class="ui container">
       <div class="ui success message">
-        <i class="close icon"></i>
         <div class="header">
           {{success_msg}}
         </div>
@@ -77,7 +74,6 @@
     {{/if}} {{#if error_msg}}
     <div class="ui container">
       <div class="ui error message">
-        <i class="close icon"></i>
         <div class="header">
           {{error_msg}}
         </div>
@@ -87,7 +83,6 @@
     {{/if}} {{#if error}}
     <div class="ui container">
       <div class="ui error message">
-        <i class="close icon"></i>
         <div class="header">
           {{error}}
         </div>
@@ -96,28 +91,33 @@
     </div> {{/if}} {{{body}}}
   </main>
 
-  <div class="ui inverted vertical footer segment sticky">
-    <div class="ui center aligned container">
-      <div class="ui stackable inverted divided grid">
-        <div class="eight wide column">
-          <h4 class="ui inverted header">Socials</h4>
-          <div class="ui inverted link list">
-            <a href="http://www.twitter.com/trokematthew" class="item">Twitter</a>
-            <a href="http://www.twitch.tv/xmattgaming" class="item">Twitch</a>
+  <div class="ui inverted vertical segment footer">
+    <div class="ui container">
+      <div class="ui grid">
+        <div class="row">
+          <div class="left aligned five wide column">
+            © 2017 ZeldaStrats - All Rights Reserved.<br><br> Made with ♥ by xMattGaming
+          </div>
+          <div class="center aligned six wide column">
+            <a href="//twitch.tv/xmattgaming">
+                        <i class="twitch large link icon"></i>
+                    </a>
+            <a href="//twitter.com/trokematthew">
+                        <i class="twitter large link icon"></i>
+                    </a>
+            <a href="/">
+                        <i class="skype large link icon"></i>
+                    </a>
+          </div>
+          <div class="right aligned five wide column">
+            <a href="">Privacy Policy</a> |
+            <a href="">Terms of Service</a> |
+            <a href="">Support</a>
+            <p><b>Zelda Strats</b> is still in beta, expect there to be bugs. We would appreciate it if you would report your
+              findings.</p>
+
           </div>
         </div>
-      
-        
-        <div class="seven wide column">
-          <h4 class="ui inverted header">Zelda Strats</h4>
-          <p>Zelda Strats&trade; is a Zelda strategy guide for speedrunners. Now listing all Zelda games and all categories. Each category for each game has strategies created by only the best and most trustworthy runners in the community.</p>
-        </div>
-      </div>
-      <div class="ui inverted section divider"></div>
-      <img src="/images/hylianshield.png" class="ui centered mini image">
-      <div class="ui horizontal inverted small divided link list">
-        <a class="item" href="/">Contact Us</a>
-        <a class="item" href="/">Terms and Conditions</a>
       </div>
     </div>
   </div>
